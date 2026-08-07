@@ -1,0 +1,9 @@
+{
+  "auto_push": true,
+  "remote": "https://github.com/AlexNguyen7369/daily-leetcode.git",
+  "branch": "main",
+  "commit_prefix": "solve",
+  "difficulty_mix": "both",
+  "server_port": 8777,
+  "seed": null
+}

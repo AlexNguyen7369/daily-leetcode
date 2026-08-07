@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>daily-leetcode</title>
+<link rel="stylesheet" href="app.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#9889;</text></svg>">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">daily<span>leetcode</span></div>
+  <div class="topbar-meta">
+    <span id="date-label" class="chip ghost">—</span>
+    <span id="streak-label" class="chip ghost">streak 0</span>
+    <span id="git-label" class="chip ghost" title="git status">git —</span>
+  </div>
+  <div class="topbar-actions">
+    <button id="btn-stats" class="btn subtle">Progress</button>
+    <button id="btn-reroll" class="btn subtle">New problem</button>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- ---------------------------------------------------------- problem -->
+  <section class="pane problem-pane">
+    <div class="pane-scroll">
+      <div class="problem-head">
+        <h1 id="title">Loading…</h1>
+        <div class="tags">
+          <span id="difficulty" class="pill">—</span>
+          <span id="topics" class="topics"></span>
+        </div>
+        <a id="url" class="ext-link" href="#" target="_blank" rel="noreferrer">open on leetcode ↗</a>
+      </div>
+
+      <p id="description" class="description"></p>
+
+      <h2 class="section-label">Examples</h2>
+      <pre id="examples" class="block"></pre>
+
+      <h2 class="section-label">Constraints</h2>
+      <ul id="constraints" class="constraints"></ul>
+
+      <h2 class="section-label">Target complexity</h2>
+      <p id="target" class="target"></p>
+
+      <h2 class="section-label">Hints</h2>
+      <div id="hints" class="hints"></div>
+      <div class="hint-actions">
+        <button id="btn-hint" class="btn subtle small">Reveal a hint</button>
+        <button id="btn-solution" class="btn subtle small danger">Show reference solution</button>
+      </div>
+      <div id="solution-box" class="solution-box hidden"></div>
+    </div>
+  </section>
+
+  <!-- ----------------------------------------------------------- editor -->
+  <section class="pane editor-pane">
+    <div class="editor-bar">
+      <span id="file-label" class="file-label">solutions/…</span>
+      <div class="editor-bar-actions">
+        <label class="toggle" title="Also run the large performance input">
+          <input type="checkbox" id="opt-stress" checked><span>stress test</span>
+        </label>
+        <label class="toggle" title="Commit and push automatically when everything passes">
+          <input type="checkbox" id="opt-push" checked><span>auto-push</span>
+        </label>
+        <button id="btn-reset" class="btn subtle small">Reset file</button>
+        <button id="btn-run" class="btn primary">Run tests <kbd>Ctrl</kbd>+<kbd>↵</kbd></button>
+      </div>
+    </div>
+
+    <div class="editor-wrap">
+      <div id="gutter" class="gutter"></div>
+      <textarea id="code" spellcheck="false" autocomplete="off"></textarea>
+    </div>
+
+    <div id="results" class="results">
+      <div class="placeholder">Write your solution, then run the tests.</div>
+    </div>
+  </section>
+</main>
+
+<div id="modal" class="modal hidden">
+  <div class="modal-card">
+    <button id="modal-close" class="modal-close">×</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
