@@ -272,7 +272,7 @@ def build(problem: Dict[str, Any], result: Dict[str, Any], source: str) -> List[
                 f"The intended complexity is {problem['target']['time']}. On LeetCode this is "
                 "the difference between Accepted and Time Limit Exceeded.",
             ))
-        elif ratio < 0.35:
+        elif ratio < 0.35 and result["all_passed"]:
             notes.append(_note("good", f"Fast on the large input ({stress['ms']:.0f} ms, "
                                        f"budget {stress['budget']:.0f} ms)"))
 

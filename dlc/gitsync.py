@@ -144,6 +144,40 @@ def status() -> Dict[str, Any]:
     return info
 
 
+def push_only() -> Dict[str, Any]:
+    """Push commits that already exist. Never stages and never commits.
+
+    This is what the UI's retry button calls: a failed push must not be able to
+    publish code that has not passed the tests.
+    """
+    outcome: Dict[str, Any] = {
+        "attempted": True, "committed": False, "pushed": False,
+        "skipped": None, "commit": None, "steps": [], "error": None,
+    }
+    try:
+        if not is_repo():
+            outcome["error"] = "not a git repository yet"
+            return outcome
+        if remote_url() is None:
+            outcome["error"] = "no `origin` remote is configured"
+            return outcome
+
+        branch = current_branch() or config.get("branch") or "main"
+        result = _git("push", "-u", "origin", branch, timeout=120)
+        if result.returncode == 0:
+            outcome["pushed"] = True
+            outcome["commit"] = _git("log", "-1", "--pretty=%h %s").stdout.strip()
+            outcome["steps"].append(f"pushed to origin/{branch}")
+        else:
+            outcome["error"] = result.stderr.strip() or result.stdout.strip() or "git push failed"
+    except subprocess.TimeoutExpired:
+        outcome["error"] = ("git timed out — it is probably waiting for credentials. "
+                            "Run `git push` once in a terminal to store them.")
+    except Exception as exc:
+        outcome["error"] = f"{type(exc).__name__}: {exc}"
+    return outcome
+
+
 def sync_solution(solution_path: str, problem: Dict[str, Any], date_key: str) -> Dict[str, Any]:
     """Stage exactly the solution + state, commit, and push. Never raises."""
     outcome: Dict[str, Any] = {

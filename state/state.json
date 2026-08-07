@@ -75,8 +75,8 @@
   ],
   "records": {
     "max-area-of-island": {
-      "attempts": 5,
-      "best_ms": 0.013,
+      "attempts": 6,
+      "best_ms": 0.012,
       "hints_shown": 1,
       "solved": true,
       "solved_on": "2026-08-06"

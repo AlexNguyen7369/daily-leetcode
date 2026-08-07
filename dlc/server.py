@@ -142,10 +142,10 @@ class Handler(BaseHTTPRequestHandler):
             return self._json(_today_payload())
 
         if path == "/api/push":
-            problem = picker.problem_for()
-            outcome = gitsync.sync_solution(picker.solution_path(problem), problem,
-                                            picker.today_key())
-            return self._json({"git": outcome, "status": gitsync.status()})
+            # Retry an earlier failed push only. This deliberately does NOT stage
+            # or commit: code that has not passed the tests must never be
+            # published by a retry.
+            return self._json({"git": gitsync.push_only(), "status": gitsync.status()})
 
         return self._json({"error": "unknown endpoint"}, 404)
 
